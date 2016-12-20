@@ -5,13 +5,17 @@ describe("OrderedJobs", function () {
         var orderedJobs = new orderedJobs_1.OrderedJobs();
         expect(orderedJobs.orderJobs("")).toEqual("");
     });
-    xit("should return one job when one job is passed in", function () {
+    it("should return one job when one job is passed in", function () {
         var orderedJobs = new orderedJobs_1.OrderedJobs();
         expect(orderedJobs.orderJobs("a =>")).toEqual("a");
     });
-    xit("should return two jobs when two jobs are passed in", function () {
+    it("should return two jobs when two jobs are passed in", function () {
         var orderedJobs = new orderedJobs_1.OrderedJobs();
         expect(orderedJobs.orderJobs("a =>\nb =>")).toEqual("ab");
+    });
+    it("should return three jobs when three jobs are passed in", function () {
+        var orderedJobs = new orderedJobs_1.OrderedJobs();
+        expect(orderedJobs.orderJobs("a =>\nb =>\nc =>")).toEqual("abc");
     });
 });
 //# sourceMappingURL=orderedJobs.spec.js.map
