@@ -9,7 +9,7 @@ var OrderedJobs = (function () {
         }
         return this.collectJobs(jobs);
     };
-    OrderedJobs.collectJobs = function (jobs) {
+    OrderedJobs.prototype.collectJobs = function (jobs) {
         var splitJobs = jobs.split("\n");
         var thisJob = "";
         for (var _i = 0, splitJobs_1 = splitJobs; _i < splitJobs_1.length; _i++) {

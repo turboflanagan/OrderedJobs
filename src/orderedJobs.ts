@@ -7,7 +7,7 @@ export class OrderedJobs {
         }
         return this.collectJobs(jobs);
     }
-    static collectJobs(jobs: string): string {
+    collectJobs(jobs: string): string {
         let splitJobs = jobs.split("\n");
         let thisJob = "";
         for (var job of splitJobs) {
