@@ -9,13 +9,21 @@ describe("OrderedJobs", function () {
         var orderedJobs = new orderedJobs_1.OrderedJobs();
         expect(orderedJobs.orderJobs("a =>")).toEqual("a");
     });
-    it("should return two jobs when two jobs are passed in", function () {
+    it("should return two jobs when passed in", function () {
         var orderedJobs = new orderedJobs_1.OrderedJobs();
         expect(orderedJobs.orderJobs("a =>\nb =>")).toEqual("ab");
     });
-    it("should return three jobs when three jobs are passed in", function () {
+    it("should return three jobs when passed in", function () {
         var orderedJobs = new orderedJobs_1.OrderedJobs();
         expect(orderedJobs.orderJobs("a =>\nb =>\nc =>")).toEqual("abc");
+    });
+    it("should return three jobs respecting one dependency", function () {
+        var orderedJobs = new orderedJobs_1.OrderedJobs();
+        expect(orderedJobs.orderJobs("a =>\nb => c\nc =>")).toEqual("acb");
+    });
+    it("should return 6 jobs respecting all dependencies", function () {
+        var orderedJobs = new orderedJobs_1.OrderedJobs();
+        expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a\ne => b\nf =>")).toEqual("dafceb");
     });
 });
 //# sourceMappingURL=orderedJobs.spec.js.map

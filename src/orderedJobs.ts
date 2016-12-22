@@ -7,12 +7,26 @@ export class OrderedJobs {
         }
         return this.collectJobs(jobs);
     }
-    collectJobs(jobs: string): string {
+
+    private collectJobs(jobs: string): string {
         let splitJobs = jobs.split("\n");
-        let thisJob = "";
-        for (var job of splitJobs) {
-            thisJob = thisJob.concat(job[0]);
+        let jobList = "";
+        let dependentJobList = "";
+        let jobsWithDependencies = splitJobs.filter(this.jobHasDependency);
+        for (var dependentJob of jobsWithDependencies) {
+            let aDependentJob = dependentJob[5];
         }
-        return thisJob;
+        for (var job of splitJobs) {
+            if (job.length < 5) {
+                jobList += job[0];
+            }else if (job.length > 5) {
+                dependentJobList = job[0];
+            }
+        }
+        return jobList.concat(dependentJobList);
+    }
+
+    jobHasDependency(jobs: string):boolean {
+        return jobs.length > 5;
     }
 }
