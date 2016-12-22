@@ -23,7 +23,13 @@ describe("OrderedJobs", function () {
     });
     it("should return 6 jobs respecting all dependencies", function () {
         var orderedJobs = new orderedJobs_1.OrderedJobs();
-        expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a\ne => b\nf =>")).toEqual("dafceb");
+        expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a\ne => b\nf =>")).toEqual("adfcbe");
     });
+    // a =>
+    // b => c
+    // c => f
+    // d => a
+    // e => b
+    // f =>
 });
 //# sourceMappingURL=orderedJobs.spec.js.map

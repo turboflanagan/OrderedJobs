@@ -24,6 +24,13 @@ describe("OrderedJobs", () => {
     });
     it("should return 6 jobs respecting all dependencies", ()=> {
         let orderedJobs: OrderedJobs = new OrderedJobs();
-        expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a\ne => b\nf =>")).toEqual("dafceb")
+        expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a\ne => b\nf =>")).toEqual("adfcbe")
     });
+
+    // a =>
+    // b => c
+    // c => f
+    // d => a
+    // e => b
+    // f =>
 });

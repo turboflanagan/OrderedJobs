@@ -12,21 +12,16 @@ export class OrderedJobs {
         let splitJobs = jobs.split("\n");
         let jobList = "";
         let dependentJobList = "";
-        let jobsWithDependencies = splitJobs.filter(this.jobHasDependency);
-        for (var dependentJob of jobsWithDependencies) {
-            let aDependentJob = dependentJob[5];
-        }
+
         for (var job of splitJobs) {
             if (job.length < 5) {
                 jobList += job[0];
             }else if (job.length > 5) {
-                dependentJobList = job[0];
+                dependentJobList += job[0];
             }
         }
+        console.log(dependentJobList);
         return jobList.concat(dependentJobList);
     }
 
-    jobHasDependency(jobs: string):boolean {
-        return jobs.length > 5;
-    }
 }
