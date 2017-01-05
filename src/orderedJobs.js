@@ -1,29 +1,34 @@
 "use strict";
 var OrderedJobs = (function () {
     function OrderedJobs() {
-        this.orderedJobs = "";
+        this._orderedJobs = "";
+        this._dependentJobList = [];
+        this._jobsWithDependency = [];
+        this._jobList = "";
     }
     OrderedJobs.prototype.orderJobs = function (jobs) {
+        this.collectJobs(jobs);
         if (jobs === "") {
             return "";
         }
-        return this.collectJobs(jobs);
+        return this._orderedJobs;
     };
     OrderedJobs.prototype.collectJobs = function (jobs) {
         var splitJobs = jobs.split("\n");
-        var jobList = "";
-        var dependentJobList = "";
         for (var _i = 0, splitJobs_1 = splitJobs; _i < splitJobs_1.length; _i++) {
             var job = splitJobs_1[_i];
             if (job.length < 5) {
-                jobList += job[0];
+                this._jobList += job[0];
             }
             else if (job.length > 5) {
-                dependentJobList += job[0];
+                console.log(job);
+                this._jobsWithDependency.push(job[5]);
+                this._dependentJobList.push(job[0]);
+                console.log("with dep = " + this._jobsWithDependency);
+                console.log("dependent = " + this._dependentJobList);
             }
         }
-        console.log(dependentJobList);
-        return jobList.concat(dependentJobList);
+        this._orderedJobs = this._jobList.concat(this._dependentJobList.join(""));
     };
     return OrderedJobs;
 }());
