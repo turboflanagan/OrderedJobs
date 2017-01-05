@@ -1,8 +1,17 @@
 export class OrderedJobs {
-    private _orderedJobs: string = "";
-    private _dependentJobList = [];
-    private _jobsWithDependency = [];
-    private _jobList = "";
+    private _jobs: string;
+    private _orderedJobs: string;
+    private _dependentJobList: any;
+    private _jobsWithDependency: any;
+    private _jobList: string;
+
+    constructor(jobs: string) {
+        this._jobs = jobs;
+        this._orderedJobs = jobs;
+        this._dependentJobList = [];
+        this._jobsWithDependency = [];
+        this._jobList = "";
+    }
 
     orderJobs(jobs: string): string {
         this.collectJobs(jobs);

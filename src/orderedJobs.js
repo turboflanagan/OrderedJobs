@@ -1,7 +1,8 @@
 "use strict";
 var OrderedJobs = (function () {
-    function OrderedJobs() {
-        this._orderedJobs = "";
+    function OrderedJobs(jobs) {
+        this._jobs = jobs;
+        this._orderedJobs = jobs;
         this._dependentJobList = [];
         this._jobsWithDependency = [];
         this._jobList = "";
