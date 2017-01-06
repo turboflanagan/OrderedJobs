@@ -10,7 +10,7 @@ var OrderedJobs = (function () {
         }
         for (var _i = 0, splitJobs_1 = splitJobs; _i < splitJobs_1.length; _i++) {
             var job = splitJobs_1[_i];
-            if (job.length > 5 && orderedJobList.indexOf(job[0]) === -1) {
+            if (job.length > 5 && orderedJobList.indexOf(job[0]) === -1 && orderedJobList.indexOf(job[5]) === -1) {
                 orderedJobList += job[5];
             }
             if (orderedJobList.indexOf(job[0]) === -1) {

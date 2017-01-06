@@ -7,9 +7,9 @@ export class OrderedJobs {
             return "";
         }
         for (var job of splitJobs) {
-                if (job.length > 5 && orderedJobList.indexOf(job[0]) === -1) {
-                    orderedJobList += job[5];
-                }
+            if (job.length > 5 && orderedJobList.indexOf(job[0]) === -1 && orderedJobList.indexOf(job[5]) === -1) {
+                orderedJobList += job[5];
+            }
             if (orderedJobList.indexOf(job[0]) === -1) {
                 orderedJobList += job[0];
             }
