@@ -25,9 +25,13 @@ describe("OrderedJobs", function () {
         var orderedJobs = new orderedJobs_1.OrderedJobs();
         expect(orderedJobs.orderJobs("a => c\nb => c\nc =>")).toEqual("cab");
     });
-    // xit("should return correct order with two dependencies iterating twice", ()=> {
+    it("should return correct order with two different dependencies", function () {
+        var orderedJobs = new orderedJobs_1.OrderedJobs();
+        expect(orderedJobs.orderJobs("a => b\nb => c\nc =>")).toEqual("cba");
+    });
+    // it("should work with multiple dependencies", ()=> {
     //     let orderedJobs: OrderedJobs = new OrderedJobs();
-    //     expect(orderedJobs.orderJobs("a => b\nb => c\nc =>")).toEqual("cba")
+    //     expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a\ne => b\nf =>")).toEqual("afcdbe")
     // });
     // a =>
     // b => c

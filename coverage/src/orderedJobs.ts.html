@@ -22,7 +22,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>9/9</span>
+        <span class='fraction'>18/18</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">75% </span>
@@ -37,7 +37,7 @@
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>8/8</span>
+        <span class='fraction'>18/18</span>
       </div>
     </div>
   </div>
@@ -62,7 +62,53 @@
 17
 18
 19
-20</td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62</td><td class="line-coverage quiet"><span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6×</span>
 <span class="cline-any cline-yes">6×</span>
@@ -71,6 +117,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -80,33 +127,112 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">13×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-yes">3×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10×</span></td><td class="text"><pre class="prettyprint lang-js">export class <span class="missing-if-branch" title="else path not taken" >E</span>OrderedJobs {
+<span class="cline-any cline-yes">3×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6×</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export class OrderedJobs {
+    splitJobs: any;
+    orderedJobList: string;
+    jobsWithDependencies: any;
+    dependentJobs: any;
 &nbsp;
-    orderJobs(jobs: string): string {
-        let splitJobs = jobs.split("\n");
-        let orderedJobList: string = "";
+    sortJobs(jobs: string): any {
+        this.splitJobs = jobs.split("\n");
+        this.orderedJobList= "";
+        this.jobsWithDependencies = [];
+        this.dependentJobs= [];
+        let dependencies = [];
         if (jobs === "") {
             return "";
         }
-        for (var job of splitJobs) {
-            if (job.length &gt; 5 &amp;&amp; orderedJobList.indexOf(job[0]) === -1 &amp;&amp; orderedJobList.indexOf(job[5]) === -1) {
-                orderedJobList += job[5];
+        for (var job of this.splitJobs) {
+            if (this.jobsWithNoDependencies(job)) {
+                this.orderedJobList += job[0];
             }
-            if (orderedJobList.indexOf(job[0]) === -1) {
-                orderedJobList += job[0];
+            if (this.jobHasDependency(job)) {
+                dependencies.push(job);
             }
+&nbsp;
         }
-        return orderedJobList;
+        for (var <span class="missing-if-branch" title="else path not taken" >E</span>job of this.splitJobs) {
+            // while (this.jobsWithDependencies.length &gt; 0) {
+                if (this.jobHasDependency(job) &amp;&amp; this.orderedJobList.indexOf(job[5]) &gt; -1) {
+                    this.orderedJobList += job[0];
+                    console.log(this.orderedJobList);
+                    // this.jobsWithDependencies.slice();
+                }
+            
+        }
     }
 &nbsp;
-}</pre></td></tr>
+    addJobsWithNoDependencies() {
+        this.orderedJobList = this.jobsWithNoDependencies;
+    }
+&nbsp;
+    private jobHasDependency(job) {
+        if (job.length &gt; 5 &amp;&amp; this.jobsWithDependencies.indexOf(job) === -1) {
+            this.jobsWithDependencies.push(job);
+        }
+&nbsp;
+        return job.length &gt; 5;
+    }
+&nbsp;
+    jobsWithNoDependencies(job): string {
+        if (job.length &lt; 5) {
+            return job;
+        }
+    }
+&nbsp;
+&nbsp;
+    orderJobs(jobs: string): string {
+        this.sortJobs(jobs);
+        return this.orderedJobList;
+    }
+&nbsp;
+}
+&nbsp;
+jobsWithDependencies = [a, b, c, d]</pre></td></tr>
 </table></pre>
 <div class='push'></div><!-- for sticky footer -->
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Jan 06 2017 10:59:01 GMT-0500 (EST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Thu Feb 02 2017 15:42:41 GMT-0500 (EST)
 </div>
 </div>
 <script src="../prettify.js"></script>
