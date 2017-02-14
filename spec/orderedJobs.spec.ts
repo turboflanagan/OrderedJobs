@@ -30,10 +30,11 @@ describe("OrderedJobs", () => {
         let orderedJobs: OrderedJobs = new OrderedJobs();
         expect(orderedJobs.orderJobs("a => b\nb => c\nc =>")).toEqual("cba")
     });
-    // it("should work with multiple dependencies", ()=> {
-    //     let orderedJobs: OrderedJobs = new OrderedJobs();
-    //     expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a\ne => b\nf =>")).toEqual("afcdbe")
-    // });
+    it("should work with multiple dependencies", ()=> {
+        let orderedJobs: OrderedJobs = new OrderedJobs();
+        expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a\ne => b\nf =>")).toEqual("afcdbe")
+    });
+
     // a =>
     // b => c
     // c => f

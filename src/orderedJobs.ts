@@ -19,23 +19,21 @@ export class OrderedJobs {
             }
             if (this.jobHasDependency(job)) {
                 dependencies.push(job);
+                // console.log(dependencies);
             }
-
         }
         let jobWasAdded = true;
+        let jobsLeft = [];
         while (jobWasAdded) {
             let numberOfJobsWithDependencies = dependencies.length;
             for (let job of dependencies) {
-                let jobsLeft = [];
                 if (this.orderedJobList.indexOf(job[5]) > -1 && this.orderedJobList.indexOf(job[0]) === -1) {
                     this.orderedJobList += job[0];
                 } else {
                     jobsLeft.push(job);
-                    dependencies = jobsLeft;
                 }
             }
-            console.log(dependencies);
-            console.log(numberOfJobsWithDependencies);
+            dependencies = jobsLeft;
             if (numberOfJobsWithDependencies === dependencies.length) {
                 jobWasAdded = false;
             }

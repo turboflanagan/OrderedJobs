@@ -21,21 +21,19 @@ var OrderedJobs = (function () {
             }
         }
         var jobWasAdded = true;
+        var jobsLeft = [];
         while (jobWasAdded) {
             var numberOfJobsWithDependencies = dependencies.length;
             for (var _b = 0, dependencies_1 = dependencies; _b < dependencies_1.length; _b++) {
                 var job_1 = dependencies_1[_b];
-                var jobsLeft = [];
                 if (this.orderedJobList.indexOf(job_1[5]) > -1 && this.orderedJobList.indexOf(job_1[0]) === -1) {
                     this.orderedJobList += job_1[0];
                 }
                 else {
                     jobsLeft.push(job_1);
-                    dependencies = jobsLeft;
                 }
             }
-            console.log(dependencies);
-            console.log(numberOfJobsWithDependencies);
+            dependencies = jobsLeft;
             if (numberOfJobsWithDependencies === dependencies.length) {
                 jobWasAdded = false;
             }
