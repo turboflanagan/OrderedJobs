@@ -33,11 +33,13 @@ describe("OrderedJobs", function () {
         var orderedJobs = new orderedJobs_1.OrderedJobs();
         expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a\ne => b\nf =>")).toEqual("afcdbe");
     });
-    // a =>
-    // b => c
-    // c => f
-    // d => a
-    // e => b
-    // f =>
+    it("should return error saying can't have circle dependencies", function () {
+        var orderedJobs = new orderedJobs_1.OrderedJobs();
+        expect(orderedJobs.orderJobs("a =>\nb => c\nc => f\nd => a")).toEqual("error");
+    });
+    it("should return error for self dependency", function () {
+        var orderedJobs = new orderedJobs_1.OrderedJobs();
+        expect(orderedJobs.orderJobs("a => \nb => \nc => c")).toEqual("jobs can’t depend on themselves");
+    });
 });
 //# sourceMappingURL=orderedJobs.spec.js.map

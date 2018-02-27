@@ -1,13 +1,15 @@
 "use strict";
 var OrderedJobs = (function () {
     function OrderedJobs() {
+        this.dependencies = [];
+        this.jobsLeft = [];
+        this.numberOfJobsWithDependencies = this.dependencies.length;
     }
     OrderedJobs.prototype.sortJobs = function (jobs) {
         this.splitJobs = jobs.split("\n");
         this.orderedJobList = "";
         this.jobsWithDependencies = [];
         this.dependentJobs = [];
-        var dependencies = [];
         if (jobs === "") {
             return "";
         }
@@ -17,15 +19,15 @@ var OrderedJobs = (function () {
                 this.orderedJobList += job[0];
             }
             if (this.jobHasDependency(job)) {
-                dependencies.push(job);
+                this.dependencies.push(job);
             }
         }
         var jobWasAdded = true;
-        var jobsLeft = [];
         while (jobWasAdded) {
-            var numberOfJobsWithDependencies = dependencies.length;
-            for (var _b = 0, dependencies_1 = dependencies; _b < dependencies_1.length; _b++) {
-                var job_1 = dependencies_1[_b];
+            var jobsLeft = [];
+            var numberOfJobsWithDependencies = this.dependencies.length;
+            for (var _b = 0, _c = this.dependencies; _b < _c.length; _b++) {
+                var job_1 = _c[_b];
                 if (this.orderedJobList.indexOf(job_1[5]) > -1 && this.orderedJobList.indexOf(job_1[0]) === -1) {
                     this.orderedJobList += job_1[0];
                 }
@@ -33,14 +35,17 @@ var OrderedJobs = (function () {
                     jobsLeft.push(job_1);
                 }
             }
-            dependencies = jobsLeft;
-            if (numberOfJobsWithDependencies === dependencies.length) {
+            this.dependencies = jobsLeft;
+            if (numberOfJobsWithDependencies === this.dependencies.length) {
                 jobWasAdded = false;
+                if (numberOfJobsWithDependencies > 0) {
+                    this.orderedJobList = "error";
+                }
+                if (job[0] === job[5]) {
+                    this.orderedJobList = "jobs can’t depend on themselves";
+                }
             }
         }
-    };
-    OrderedJobs.prototype.addJobsWithNoDependencies = function () {
-        this.orderedJobList = this.jobsWithNoDependencies;
     };
     OrderedJobs.prototype.jobHasDependency = function (job) {
         if (job.length > 5 && this.jobsWithDependencies.indexOf(job) === -1) {
@@ -52,6 +57,8 @@ var OrderedJobs = (function () {
         if (job.length < 5) {
             return job;
         }
+    };
+    OrderedJobs.prototype.checkForErrors = function (job) {
     };
     OrderedJobs.prototype.orderJobs = function (jobs) {
         this.sortJobs(jobs);
